@@ -5,7 +5,7 @@
 class MelonType(object):
     """A species of melon at a melon farm."""
 
-    def __init__(self, code, first_harvest, color, name, is_seedless == 'True', is_bestseller == 'True'):
+    def __init__(self, code, first_harvest, color, name, is_seedless = 'True', is_bestseller = 'True'):
         """Initialize a melon."""
         self.pairings = []
         self.code = code
@@ -25,6 +25,7 @@ class MelonType(object):
         """Replace the reporting code with the new_code."""
 
         self.code = new_code
+        print(f"this is the new code {new_code})")
 
 def make_melon_types():
     """Returns a list of current melon types."""
@@ -32,29 +33,42 @@ def make_melon_types():
     all_melon_types = []
 
     muskmelon = MelonType('musk', '1998', 'green', 'Muskmelon')
-    casaba = MelonType('cas', '2003', 'orange', 'Casaba', False, False)
-    crenshaw = MelonType('cren', '1996', 'green', 'Crenshaw', False, False)
-    yellow_watermelon = MelonType('yw', '2013', 'yellow', 'Yellow Watermelon', False, True)
-    
     muskmelon.add_pairing('mint')
-    casaba.add_pairing('strawberies', 'mint')
+    all_melon_types.append(muskmelon)
+
+    casaba = MelonType('cas', '2003', 'orange', 'Casaba', False, False)
+    casaba.add_pairing('strawberies')
+    casaba.add_pairing('mint')
+    all_melon_types.append(casaba)
+
+    crenshaw = MelonType('cren', '1996', 'green', 'Crenshaw', False, False)
     crenshaw.add_pairing('proscuitto')
+    all_melon_types.append(crenshaw)
+
+    yellow_watermelon = MelonType('yw', '2013', 'yellow', 'Yellow Watermelon', False, True)
     yellow_watermelon.add_pairing('ice cream')
-
-    melons = [muskmelon, casaba, crenshaw, yellow_watermelon]
-    all_melon_types.extend(melons)
-
+    all_melon_types.append(yellow_watermelon)
+    
     return all_melon_types
 
 def print_pairing_info(melon_types):
     """Prints information about each melon type's pairings."""
-
-    # Fill in the rest
+    for melon in melon_types:
+        print(f"{melon.name} pairs with")
+        for pairing in melon.pairings:
+            print(f"- {pairing}")
+        print() 
 
 def make_melon_type_lookup(melon_types):
     """Takes a list of MelonTypes and returns a dictionary of melon type by code."""
+    melon_report_codes = {}
 
-    # Fill in the rest
+    for melon in melon_types:
+        if melon.code not in melon_report_codes:
+            melon_report_codes[melon.code] = melon
+    
+    return melon_report_codes
+
 
 ############
 # Part 2   #
